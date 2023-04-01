@@ -71,12 +71,17 @@ void Display::updateScreen()
 
 bool Display::quitGameLoop()
 {
+	//SDL_Event is a union that contains structures for
+	//all event types in SDL2
 	SDL_Event event;
-	while(SDL_PollEvent(&event))
+
+	//SDL_PollEvent() reads an event from top of queue
+	//into 'event'
+	//It returns 0 if queue is empty, 1 otherwise
+	while(SDL_PollEvent(&event) != 0)
 	{
 		if(event.type == SDL_QUIT)
 			return true;
-		break;
 	}
 	return false;
 }

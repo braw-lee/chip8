@@ -2,6 +2,8 @@
 #define CHIP8_H
 
 #include "display.h"
+#include "eventHandler.h"
+#include "keyboard.h"
 
 #include <array>
 #include <cstdint>
@@ -13,12 +15,11 @@ const int MEMORY_START = 0x200;  //we should start reading from 0x200
 class Chip8
 {
 public:
-	Chip8();  //default constructor
+	Chip8(std::array<Keyboard::KeyState, 16>& keyState);  //default constructor
 	void decodeAndExecute(uint16_t opcode);
 	bool loadRom(std::string& path);
 	uint16_t fetch();
 	void runCycle();
-	bool quitGameLoop();
 private:
 	std::array<uint8_t, MEMORY_SIZE> _memory;  //memory
 	const std::array<uint8_t, 80> _font;
@@ -32,7 +33,8 @@ private:
 
 	Display _display;
 	bool _updateDisplay;
-	bool _quitGameLoop;
+	
+	std::array<Keyboard::KeyState, 16>& _keyState;
 };
 
 #endif

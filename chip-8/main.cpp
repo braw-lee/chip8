@@ -1,4 +1,6 @@
 #include "chip8.h"
+#include "keyboard.h"
+#include "eventHandler.h"
 
 #include <chrono>
 #include <thread>
@@ -13,15 +15,19 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 	std::string path = argv[1];
-	Chip8 a;
 
-	if(a.loadRom(path))
+	Keyboard keyboard;
+	Chip8 cpu(keyboard.getKeys());
+	EventHandler ehandler(keyboard.getKeys());
+	if(cpu.loadRom(path))
 	{
-		while(!a.quitGameLoop())
+		bool quit{false};
+		while(!quit)
 		{
-			a.runCycle();
-//			std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+			quit = ehandler.handleEvents();
+			cpu.runCycle();
 		}
+//			std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 	}
 	else
 		std::cerr<<"\nError loading rom";

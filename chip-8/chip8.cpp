@@ -8,7 +8,7 @@
 //used for debugging
 #define DEBUG true
 
-Chip8::Chip8()
+Chip8::Chip8(std::array<Keyboard::KeyState, 16>& keyState)
 	: _font
 	{
 		0xF0, 0x90, 0x90, 0x90, 0xF0, // 0
@@ -34,7 +34,7 @@ Chip8::Chip8()
 	_delayTimer{},
 	_soundTimer{},
 	_updateDisplay{false},
-	_quitGameLoop{false}
+	_keyState{keyState}
 {
 	std::cout<<"\nChip8 constructor!";
 }
@@ -360,7 +360,7 @@ void Chip8::decodeAndExecute(uint16_t opcode)
 
 			#if DEBUG
 			std::cout<<"\nAnnn - LD I, addr";
-			std::cout<<std::hex<<(int)_i;
+			std::cout<<"\n_i : "<<std::hex<<(int)_i;
 			#endif
 			break;
 		}
@@ -406,6 +406,68 @@ std::cerr<<"\nSetting "<<xCordinate<<" "<<yCordinate<<" to 1";
 			#endif
 			break;
 		}
+		
+		case(0xE):  //input
+		{
+			switch(nn)
+			{
+				case(0x9E): //Ex9E - SKP Vx
+				{
+					if(_keyState[_v[x]] == Keyboard::KEY_DOWN)
+						_pc += 2;
+
+					#if DEBUG
+					std::cout<<"\nEx9E - SKP Vx";
+					std::cout<<"\nIncrement _pc to : "<<std::hex<<(int)_pc;
+					#endif
+				}
+				case(0xA1): //ExA1 - SKNP Vx
+				{
+					if(_keyState[_v[x]] == Keyboard::KEY_UP)
+						_pc += 2;
+
+					#if DEBUG
+					std::cout<<"\nExA1 - SKNP Vx";
+					std::cout<<"\nIncrement _pc to : "<<std::hex<<(int)_pc;
+					#endif
+				}
+			}
+		}
+
+		case(0xF):
+		{
+			switch(nn)
+			{
+				case(0x07):  //Fx07- LD Vx, DT
+				{
+					_v[x] = _delayTimer;
+
+					#if DEBUG
+					std::cout<<"\nFx07 - LD Vx, DT";
+					std::cout<<"\nSet _v[x] to _delayTimer : "<<std::hex<<(int)_v[x];
+					#endif
+				}
+
+				case(0x0A):  //Fx0A - LD Vx, K
+				{
+					uint8_t key{};
+					bool waitForInput{true};
+					for(int i=0; i< 16; i++)
+					{
+						if(_keyState[i] == Keyboard::KEY_DOWN)
+						{
+							key = i;
+							waitForInput = false;
+							break;
+						}
+					}
+					if(waitForInput)
+						_pc -= 2;
+					else
+						_v[x] = key;
+				}
+			}
+		}
 
 		default: 
 			std::cerr<<"\nCannot recognize instruction : "<<std::hex<<int(opcode);
@@ -438,10 +500,5 @@ std::cerr<<"\nDisplaying screen";
 		_display.updateScreen();
 		_updateDisplay = false;
 	}
-	_quitGameLoop = _display.quitGameLoop();
 }
 
-bool Chip8::quitGameLoop()
-{
-	return _quitGameLoop;
-}
