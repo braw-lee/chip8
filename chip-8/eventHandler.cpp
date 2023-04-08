@@ -13,21 +13,23 @@ bool EventHandler::handleEvents()
 		//return true when user tries to quit the program
 		if(_event.type == SDL_QUIT)
 			quit = true;
-	
-		//return true when user presses 'esc' key
-		else if(_event.type == SDL_KEYDOWN && _event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
-			quit = true;
 
 		//handles events when user presses a key
 		if(_event.type == SDL_KEYDOWN)
 		{
-			_keyState[_keyMapping[_event.key.keysym.scancode]] = Keyboard::KEY_DOWN;
+			//return true when user presses 'esc' key
+			if (_event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+				quit = true;
+
+			if(_keyMapping.count(_event.key.keysym.scancode) != 0 )
+				_keyState[_keyMapping[_event.key.keysym.scancode]] = Keyboard::KEY_DOWN;
 		}
 
 		//handles events when user releases a key
 		if(_event.type == SDL_KEYUP)
 		{
-			_keyState[_keyMapping[_event.key.keysym.scancode]] = Keyboard::KEY_UP;
+			if(_keyMapping.count(_event.key.keysym.scancode) != 0)
+				_keyState[_keyMapping[_event.key.keysym.scancode]] = Keyboard::KEY_UP;
 		}
 	}
 

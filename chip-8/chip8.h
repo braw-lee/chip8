@@ -4,6 +4,8 @@
 #include "display.h"
 #include "eventHandler.h"
 #include "keyboard.h"
+#include "randomNumber.h"
+#include "utility.h"
 
 #include <array>
 #include <cstdint>
@@ -12,14 +14,19 @@
 const int MEMORY_SIZE = 4096;  //Chip-8 has direct access to upto 4kb of RAM
 const int MEMORY_START = 0x200;  //we should start reading from 0x200
 
+#define DEBUG true
+
 class Chip8
 {
 public:
 	Chip8(std::array<Keyboard::KeyState, 16>& keyState);  //default constructor
-	void decodeAndExecute(uint16_t opcode);
 	bool loadRom(std::string& path);
 	uint16_t fetch();
 	void runCycle();
+	void decodeAndExecute(uint16_t opcode);
+	void panicQuit(uint16_t opcode);
+	void decrementTimers();
+	void updateDisplay();
 private:
 	std::array<uint8_t, MEMORY_SIZE> _memory;  //memory
 	const std::array<uint8_t, 80> _font;

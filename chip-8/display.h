@@ -17,12 +17,10 @@ public:
 	uint8_t getPixel(int x,int y);
 	void setPixel(int x, int y, int val);
 	void updateScreen();
-	bool quitGameLoop();
 private:
 	SDL_Window* _window;
 	SDL_Renderer* _renderer;
-	std::array<std::array<uint8_t, SCREEN_HEIGHT>, SCREEN_WIDTH> _pixel;	
-//	uint8_t _pixel[SCREEN_WIDTH][SCREEN_HEIGHT];
+	std::array<std::array<uint8_t, SCREEN_HEIGHT>, SCREEN_WIDTH> _pixel;
 };
 
 #endif

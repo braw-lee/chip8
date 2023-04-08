@@ -52,6 +52,8 @@ void Display::setPixel(int x, int y, int val)
 
 void Display::updateScreen()
 {
+	SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
+	SDL_RenderClear(_renderer);
 	for(int row=0; row<SCREEN_HEIGHT; row++)
 	{
 		for(int col=0; col<SCREEN_WIDTH; col++)
@@ -60,28 +62,9 @@ void Display::updateScreen()
 			{
 				SDL_SetRenderDrawColor(_renderer, 255, 100, 0, 255);
 				SDL_RenderDrawPoint(_renderer, col, row);
-
-				if(col == 31 && row == 0)
-					std::cerr<<"\nERROR";
 			}
 		}
 	}
 	SDL_RenderPresent(_renderer);
 }
 
-bool Display::quitGameLoop()
-{
-	//SDL_Event is a union that contains structures for
-	//all event types in SDL2
-	SDL_Event event;
-
-	//SDL_PollEvent() reads an event from top of queue
-	//into 'event'
-	//It returns 0 if queue is empty, 1 otherwise
-	while(SDL_PollEvent(&event) != 0)
-	{
-		if(event.type == SDL_QUIT)
-			return true;
-	}
-	return false;
-}
