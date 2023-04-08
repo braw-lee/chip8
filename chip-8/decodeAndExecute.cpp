@@ -165,12 +165,15 @@ void Chip8::decodeAndExecute(uint16_t opcode)
 					break;
 				}
 
-				case(0x1):  //8xy0 - OR Vx, Vy
+				case(0x1):  //8xy1 - OR Vx, Vy
 				{
 					_v[x] = _v[x] | _v[y];
 					
+					//For CHIP-8 only
+					_v[0xF] = 0;
+
 					#if DEBUG
-					std::cout<<"\n8xy0 - OR Vx, Vy";
+					std::cout<<"\n8xy1 - OR Vx, Vy";
 					std::cout<<"\nV["<<toHex(x, 1)<<"] : "<<toHex(_v[x], 2);
 					std::cout<<"\nV["<<toHex(y, 1)<<"] : "<<toHex(_v[y], 2);
 					#endif
@@ -181,6 +184,9 @@ void Chip8::decodeAndExecute(uint16_t opcode)
 				{
 					_v[x] = _v[x] & _v[y];
 					
+					//For CHIP-8 only
+					_v[0xF] = 0;
+
 					#if DEBUG
 					std::cout<<"\n8xy2 - AND Vx, Vy";
 					std::cout<<"\nV["<<toHex(x, 1)<<"] : "<<toHex(_v[x], 2);
@@ -192,6 +198,9 @@ void Chip8::decodeAndExecute(uint16_t opcode)
 				case(0x3):  //8xy3 - XOR Vx, Vy
 				{
 					_v[x] = _v[x] ^ _v[y];
+
+					//For CHIP-8 only
+					_v[0xF] = 0;
 
 					#if DEBUG
 					std::cout<<"\n8xy3 - XOR Vx, Vy";
@@ -233,9 +242,14 @@ void Chip8::decodeAndExecute(uint16_t opcode)
 
 				case(0x6):  //8xy6 - SHR Vx {, Vy}
 				{
-					uint8_t flag = _v[x] & 0x1;
-					_v[x] /= 2;
+					//For CHIP-8
+					uint8_t flag = _v[y] & 0x1;
+					_v[x] = _v[y] >> 1;
 					_v[0xF] = flag;
+					
+				//	uint8_t flag = _v[x] & 0x1;  //for other versions
+				//	_v[x] /= 2;
+				//	_v[0xF] = flag;
 					
 					#if DEBUG
 					std::cout<<"\n8xy6 - SHR Vx {, Vy}";
@@ -262,9 +276,14 @@ void Chip8::decodeAndExecute(uint16_t opcode)
 
 				case(0xE):  //8xyE - SHL Vx {, Vy}
 				{
-					uint8_t flag = _v[x] >> 7;
-					_v[x] = _v[x] * 2;
+					//For CHIP-8
+					uint8_t flag = _v[y] >> 7;
+					_v[x] = _v[y] << 1;
 					_v[0xF] = flag;
+					
+				//	uint8_t flag = _v[x] >> 7;  //for other versions
+				//	_v[x] = _v[x] * 2;
+				//	_v[0xF] = flag;
 					
 					#if DEBUG
 					std::cout<<"\n8xyE - SHL Vx {, Vy}";
@@ -522,9 +541,11 @@ void Chip8::decodeAndExecute(uint16_t opcode)
 
 				case(0x55):  //Fx55 - LD [I], Vx
 				{
+					//For CHIP-8
 					for(int i=0; i<=x; i++)
 					{
-						_memory[_i + i] = _v[i];
+						_memory[_i] = _v[i];
+						_i++;
 					}
 
 					#if DEBUG
