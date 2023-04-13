@@ -1,5 +1,5 @@
 #include "chip8.h"
-#include "utility.h"
+#include "config.h"
 
 #include <iostream>
 #include <cstdlib>
@@ -242,15 +242,18 @@ void Chip8::decodeAndExecute(uint16_t opcode)
 
 				case(0x6):  //8xy6 - SHR Vx {, Vy}
 				{
-					//For CHIP-8
-					uint8_t flag = _v[y] & 0x1;
-					_v[x] = _v[y] >> 1;
-					_v[0xF] = flag;
-					
-				//	uint8_t flag = _v[x] & 0x1;  //for other versions
-				//	_v[x] /= 2;
-				//	_v[0xF] = flag;
-					
+					if(Config::currVersion == Config::ORIGINAL)
+					{
+						uint8_t flag = _v[y] & 0x1;
+						_v[x] = _v[y] >> 1;
+						_v[0xF] = flag;
+					}
+					else if(Config::currVersion == Config::CHIP_48)
+					{
+						uint8_t flag = _v[x] & 0x1;  //for other versions
+						_v[x] /= 2;
+						_v[0xF] = flag;
+					}
 					#if DEBUG
 					std::cout<<"\n8xy6 - SHR Vx {, Vy}";
 					std::cout<<"\nV["<<toHex(x, 1)<<"] : "<<toHex(_v[x], 2);
@@ -276,15 +279,19 @@ void Chip8::decodeAndExecute(uint16_t opcode)
 
 				case(0xE):  //8xyE - SHL Vx {, Vy}
 				{
-					//For CHIP-8
-					uint8_t flag = _v[y] >> 7;
-					_v[x] = _v[y] << 1;
-					_v[0xF] = flag;
+					if(Config::currVersion == Config::ORIGINAL)
+					{
+						uint8_t flag = _v[y] >> 7;
+						_v[x] = _v[y] << 1;
+						_v[0xF] = flag;
+					}
+					else if(Config::currVersion == Config::CHIP_48)
+					{
 					
-				//	uint8_t flag = _v[x] >> 7;  //for other versions
-				//	_v[x] = _v[x] * 2;
-				//	_v[0xF] = flag;
-					
+						uint8_t flag = _v[x] >> 7;  //for other versions
+						_v[x] = _v[x] * 2;
+						_v[0xF] = flag;
+					}
 					#if DEBUG
 					std::cout<<"\n8xyE - SHL Vx {, Vy}";
 					std::cout<<"\nV["<<toHex(x, 1)<<"] : "<<toHex(_v[x], 2);
@@ -326,7 +333,10 @@ void Chip8::decodeAndExecute(uint16_t opcode)
 
 		case(0xB):  //Bnnn - JP V0, addr
 		{
-			_pc = _v[0] + nnn;
+			if(Config::currVersion == Config::ORIGINAL)
+				_pc = _v[0] + nnn;
+			else if(Config::currVersion == Config::CHIP_48)
+				_pc = _v[x] + nnn;
 
 			#if DEBUG
 			std::cout<<"\nBnnn - JP V0, addr";
@@ -558,9 +568,18 @@ void Chip8::decodeAndExecute(uint16_t opcode)
 
 				case(0x65):  //Fx65 - LD Vx, [I]
 				{
-					for(int i=0; i<=x; i++)
+					if(Config::currVersion == Config::ORIGINAL)
 					{
-						_v[i] = _memory[_i + i];
+						for(int i=0; i<=x; i++)
+						{
+							_v[i] = _memory[_i];
+							_i++;
+						}
+					}
+					else if(Config::currVersion == Config::CHIP_48)
+					{
+						for(int i=0; i<=x; i++)
+							_v[i] = _memory[_i + i];
 					}
 
 					#if DEBUG
