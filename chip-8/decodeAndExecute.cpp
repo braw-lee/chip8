@@ -242,13 +242,13 @@ void Chip8::decodeAndExecute(uint16_t opcode)
 
 				case(0x6):  //8xy6 - SHR Vx {, Vy}
 				{
-					if(Config::currVersion == Config::ORIGINAL)
+					if(configurations.currVersion == ORIGINAL)
 					{
 						uint8_t flag = _v[y] & 0x1;
 						_v[x] = _v[y] >> 1;
 						_v[0xF] = flag;
 					}
-					else if(Config::currVersion == Config::CHIP_48)
+					else if(configurations.currVersion == CHIP_48)
 					{
 						uint8_t flag = _v[x] & 0x1;  //for other versions
 						_v[x] /= 2;
@@ -279,13 +279,13 @@ void Chip8::decodeAndExecute(uint16_t opcode)
 
 				case(0xE):  //8xyE - SHL Vx {, Vy}
 				{
-					if(Config::currVersion == Config::ORIGINAL)
+					if(configurations.currVersion == ORIGINAL)
 					{
 						uint8_t flag = _v[y] >> 7;
 						_v[x] = _v[y] << 1;
 						_v[0xF] = flag;
 					}
-					else if(Config::currVersion == Config::CHIP_48)
+					else if(configurations.currVersion == CHIP_48)
 					{
 					
 						uint8_t flag = _v[x] >> 7;  //for other versions
@@ -333,9 +333,9 @@ void Chip8::decodeAndExecute(uint16_t opcode)
 
 		case(0xB):  //Bnnn - JP V0, addr
 		{
-			if(Config::currVersion == Config::ORIGINAL)
+			if(configurations.currVersion == ORIGINAL)
 				_pc = _v[0] + nnn;
-			else if(Config::currVersion == Config::CHIP_48)
+			else if(configurations.currVersion == CHIP_48)
 				_pc = _v[x] + nnn;
 
 			#if DEBUG
@@ -568,7 +568,7 @@ void Chip8::decodeAndExecute(uint16_t opcode)
 
 				case(0x65):  //Fx65 - LD Vx, [I]
 				{
-					if(Config::currVersion == Config::ORIGINAL)
+					if(configurations.currVersion == ORIGINAL)
 					{
 						for(int i=0; i<=x; i++)
 						{
@@ -576,7 +576,7 @@ void Chip8::decodeAndExecute(uint16_t opcode)
 							_i++;
 						}
 					}
-					else if(Config::currVersion == Config::CHIP_48)
+					else if(configurations.currVersion == CHIP_48)
 					{
 						for(int i=0; i<=x; i++)
 							_v[i] = _memory[_i + i];

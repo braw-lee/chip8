@@ -6,6 +6,7 @@
 #include "keyboard.h"
 #include "randomNumber.h"
 #include "utility.h"
+#include "sound.h"
 
 #include <array>
 #include <cstdint>
@@ -42,6 +43,8 @@ private:
 	bool _updateDisplay;
 	
 	std::array<Keyboard::KeyState, 16>& _keyState;
+
+	Sound speaker;
 };
 
 #endif

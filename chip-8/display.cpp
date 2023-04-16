@@ -6,7 +6,7 @@
 Display::Display():
 	_pixel{}
 {
-	SDL_Init(SDL_INIT_VIDEO);
+	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 	SDL_CreateWindowAndRenderer(SCREEN_WIDTH*SCREEN_SCALE, SCREEN_HEIGHT*SCREEN_SCALE, 0,&_window, &_renderer );
 	SDL_RenderSetScale(_renderer, SCREEN_SCALE, SCREEN_SCALE);
 	clear();

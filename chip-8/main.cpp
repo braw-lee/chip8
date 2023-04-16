@@ -17,8 +17,8 @@ int main(int argc, char* argv[])
 	std::string path = argv[1];
 
 	Keyboard keyboard;
-	Chip8 cpu(keyboard.getKeys());
 	EventHandler ehandler(keyboard.getKeys());
+	Chip8 cpu(keyboard.getKeys());
 	if(cpu.loadRom(path))
 	{
 		bool quit{false};
@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
 			quit = ehandler.handleEvents();
 
 			uint64_t start_time = SDL_GetPerformanceCounter();
-			for(int i=0; i< 700 / 60; i++)
+			for(int i=0; i< 900 / 60; i++)
 			{
 				cpu.runCycle();
 			}

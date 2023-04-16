@@ -97,7 +97,12 @@ void Chip8::decrementTimers()
 	if(_delayTimer > 0)
 		_delayTimer--;
 	if(_soundTimer > 0)
+	{
 		_soundTimer--;
+		speaker.unpause();
+	}
+	else
+		speaker.pause();
 }
 
 void Chip8::updateDisplay()
