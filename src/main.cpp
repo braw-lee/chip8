@@ -1,4 +1,4 @@
-#include "machine.h"
+#include "../include/machine.h"
 
 #include <iostream>
 #include <string>

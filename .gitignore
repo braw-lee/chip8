@@ -1,7 +1,3 @@
-test/
-
 roms/
 
-#object files
-*.o
-
+build/

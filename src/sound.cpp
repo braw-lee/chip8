@@ -1,5 +1,5 @@
-#include "sound.h"
-#include "config.h"
+#include "../include/sound.h"
+#include "../include/config.h"
 
 void callBackFunction(void* userData, uint8_t* stream, int len)
 {

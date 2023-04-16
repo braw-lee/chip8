@@ -1,7 +1,7 @@
 #ifndef MACHINE_H
 #define MACHINE_H
 
-#include "chip8.h"
+#include "cpu.h"
 #include "keyboard.h"
 #include "eventHandler.h"
 

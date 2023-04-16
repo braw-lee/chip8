@@ -1,10 +1,11 @@
-#include "machine.h"
+#include "../include/machine.h"
+#include "../include/config.h"
 
 void Machine::run(std::string& romPath)
 {
 	Keyboard keyboard;
 	EventHandler ehandler(keyboard.getKeys());
-	Chip8 cpu(keyboard.getKeys());
+	Cpu cpu(keyboard.getKeys());
 	if(cpu.loadRom(romPath))
 	{
 		bool quit{false};
@@ -14,12 +15,12 @@ void Machine::run(std::string& romPath)
 			quit = ehandler.handleEvents();
 
 			uint64_t start_time = SDL_GetPerformanceCounter();
-			for(int i=0; i< 900 / 60; i++)
+			for(int i=0; i< configurations.instructionsPerSecond / configurations.framesPerSecond; i++)
 			{
 				cpu.runCycle();
 			}
-			cpu.updateDisplay();
-			cpu.decrementTimers();
+			cpu.updateDisplay();  //display at 60Hz
+			cpu.decrementTimers();  //decrement timers at 60Hz
 
 			uint64_t end_time = SDL_GetPerformanceCounter();
 			deltaTime = (double)((end_time - start_time) * 1000) / SDL_GetPerformanceFrequency();

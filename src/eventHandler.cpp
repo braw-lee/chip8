@@ -1,4 +1,7 @@
-#include "eventHandler.h"
+#include "../include/eventHandler.h"
+#include "../include/config.h"
+
+#include <iostream> //temp
 
 EventHandler::EventHandler(std::array<Keyboard::KeyState, 16>& keyState)
 	:_keyState{keyState}
@@ -17,12 +20,12 @@ bool EventHandler::handleEvents()
 		//handles events when user presses a key
 		if(_event.type == SDL_KEYDOWN)
 		{
+			if(_keyMapping.count(_event.key.keysym.scancode) != 0 )
+				_keyState[_keyMapping[_event.key.keysym.scancode]] = Keyboard::KEY_DOWN;
+		
 			//return true when user presses 'esc' key
 			if (_event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 				quit = true;
-
-			if(_keyMapping.count(_event.key.keysym.scancode) != 0 )
-				_keyState[_keyMapping[_event.key.keysym.scancode]] = Keyboard::KEY_DOWN;
 		}
 
 		//handles events when user releases a key
@@ -35,4 +38,3 @@ bool EventHandler::handleEvents()
 
 	return quit;
 }
-

@@ -1,4 +1,4 @@
-#include "randomNumber.h"
+#include "../include/randomNumber.h"
 #include <random>
 
 int RandomNumber::generateRandomNumber(int x, int y)

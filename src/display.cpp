@@ -1,4 +1,4 @@
-#include "display.h"
+#include "../include/display.h"
 #include <iostream>
 
 #define DEBUG true

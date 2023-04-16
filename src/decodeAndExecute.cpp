@@ -1,12 +1,12 @@
-#include "chip8.h"
-#include "config.h"
+#include "../include/cpu.h"
+#include "../include/config.h"
 
 #include <iostream>
 #include <cstdlib>
 
 using namespace Utility;
 
-void Chip8::decodeAndExecute(uint16_t opcode)
+void Cpu::decodeAndExecute(uint16_t opcode)
 {
 	uint8_t x = (opcode & 0x0F00)>>8;  //second nibble
 	uint8_t y = (opcode & 0x00F0)>>4;  //third nibble

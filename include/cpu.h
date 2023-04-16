@@ -1,5 +1,5 @@
-#ifndef CHIP8_H
-#define CHIP8_H
+#ifndef CPU_H
+#define CPU_H
 
 #include "display.h"
 #include "eventHandler.h"
@@ -17,10 +17,10 @@ const int MEMORY_START = 0x200;  //we should start reading from 0x200
 
 #define DEBUG true
 
-class Chip8
+class Cpu
 {
 public:
-	Chip8(std::array<Keyboard::KeyState, 16>& keyState);  //default constructor
+	Cpu(std::array<Keyboard::KeyState, 16>& keyState);  //default constructor
 	bool loadRom(std::string& path);
 	uint16_t fetch();
 	void runCycle();

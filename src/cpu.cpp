@@ -1,5 +1,5 @@
-#include "chip8.h"
-#include "display.h"
+#include "../include/cpu.h"
+#include "../include/display.h"
 
 #include <cstdlib>
 #include <fstream>
@@ -7,7 +7,7 @@
 
 using namespace Utility;
 
-Chip8::Chip8(std::array<Keyboard::KeyState, 16>& keyState)
+Cpu::Cpu(std::array<Keyboard::KeyState, 16>& keyState)
 	: _font
 	{
 		0xF0, 0x90, 0x90, 0x90, 0xF0, // 0
@@ -39,10 +39,10 @@ Chip8::Chip8(std::array<Keyboard::KeyState, 16>& keyState)
 	for(int i=0; i<80; i++)
 		_memory[i] = _font[i];
 
-	std::cout<<"\nChip8 constructor!";
+	std::cout<<"\nCpu constructor!";
 }
 
-bool Chip8::loadRom(std::string& path)
+bool Cpu::loadRom(std::string& path)
 {
 	std::ifstream file(path, std::ios::binary|std::ios::in);
 
@@ -65,7 +65,7 @@ bool Chip8::loadRom(std::string& path)
 	return true;
 }
 
-uint16_t Chip8::fetch()
+uint16_t Cpu::fetch()
 {
 	uint16_t opcodeFirstHalf = _memory[_pc]<<8;
 	uint16_t opocodeSecondHalf = _memory[_pc+1];
@@ -74,7 +74,7 @@ uint16_t Chip8::fetch()
 	return opcode;
 }
 
-void Chip8::runCycle()
+void Cpu::runCycle()
 {
 	uint16_t opcode = fetch();
 
@@ -86,13 +86,13 @@ void Chip8::runCycle()
 	
 }
 
-void Chip8::panicQuit(uint16_t opcode)
+void Cpu::panicQuit(uint16_t opcode)
 {
 	std::cout<<"\nCannot recognize instruction : "<<toHex(opcode, 4);
 	exit(1);
 }
 
-void Chip8::decrementTimers()
+void Cpu::decrementTimers()
 {
 	if(_delayTimer > 0)
 		_delayTimer--;
@@ -105,7 +105,7 @@ void Chip8::decrementTimers()
 		speaker.pause();
 }
 
-void Chip8::updateDisplay()
+void Cpu::updateDisplay()
 {
 	if(_updateDisplay)
 	{
