@@ -1,5 +1,5 @@
-#include "../include/display.h"
-#include "../include/config.h"
+#include "../include/display.hpp"
+#include "../include/config.hpp"
 
 #include <iostream>
 

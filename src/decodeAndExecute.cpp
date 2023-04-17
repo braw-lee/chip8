@@ -1,5 +1,5 @@
-#include "../include/cpu.h"
-#include "../include/config.h"
+#include "../include/cpu.hpp"
+#include "../include/config.hpp"
 
 #include <iostream>
 #include <cstdlib>

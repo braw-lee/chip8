@@ -1,5 +1,5 @@
-#ifndef SOUND_H
-#define SOUND_H
+#ifndef SOUND_HPP
+#define SOUND_HPP
 
 #include <SDL2/SDL_audio.h>
 #include <iostream>

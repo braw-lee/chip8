@@ -1,12 +1,12 @@
-#ifndef CPU_H
-#define CPU_H
+#ifndef CPU_HPP
+#define CPU_HPP
 
-#include "display.h"
-#include "eventHandler.h"
-#include "keyboard.h"
-#include "randomNumber.h"
-#include "utility.h"
-#include "sound.h"
+#include "display.hpp"
+#include "eventHandler.hpp"
+#include "keyboard.hpp"
+#include "randomNumber.hpp"
+#include "utility.hpp"
+#include "sound.hpp"
 
 #include <array>
 #include <cstdint>

@@ -1,5 +1,5 @@
-#include "../include/machine.h"
-#include "../include/config.h"
+#include "../include/machine.hpp"
+#include "../include/config.hpp"
 
 void Machine::run(std::string& romPath)
 {

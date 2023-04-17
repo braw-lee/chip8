@@ -1,8 +1,6 @@
-#include "../include/eventHandler.h"
-#include "../include/config.h"
-#include "../include/randomNumber.h"
-
-#include <iostream> //temp
+#include "../include/eventHandler.hpp"
+#include "../include/config.hpp"
+#include "../include/randomNumber.hpp"
 
 EventHandler::EventHandler(std::array<Keyboard::KeyState, 16>& keyState)
 	:_keyState{keyState}

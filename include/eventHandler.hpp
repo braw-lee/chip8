@@ -1,5 +1,5 @@
-#ifndef EVENT_HANDLER_H
-#define EVENT_HANDLER_H
+#ifndef EVENT_HANDLER_HPP
+#define EVENT_HANDLER_HPP
 
 /*
  *mapping of COSMAC vip keypad to left side of QWERTY keyboard
@@ -15,7 +15,7 @@
 #include <SDL2/SDL.h>
 #include <map>
 
-#include "keyboard.h"
+#include "keyboard.hpp"
 
 class EventHandler
 {

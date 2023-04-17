@@ -1,5 +1,5 @@
-#include "../include/cpu.h"
-#include "../include/display.h"
+#include "../include/cpu.hpp"
+#include "../include/display.hpp"
 
 #include <cstdlib>
 #include <fstream>
