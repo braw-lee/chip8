@@ -1,4 +1,6 @@
 #include "../include/display.h"
+#include "../include/config.h"
+
 #include <iostream>
 
 #define DEBUG true
@@ -7,8 +9,15 @@ Display::Display():
 	_pixel{}
 {
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
-	SDL_CreateWindowAndRenderer(SCREEN_WIDTH*SCREEN_SCALE, SCREEN_HEIGHT*SCREEN_SCALE, 0,&_window, &_renderer );
+	_window = SDL_CreateWindow("CHIP_8", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH*SCREEN_SCALE, SCREEN_HEIGHT*SCREEN_SCALE, 0);
+	_renderer = SDL_CreateRenderer(_window, 1, 0);
 	SDL_RenderSetScale(_renderer, SCREEN_SCALE, SCREEN_SCALE);
+
+	if(_window == nullptr)
+		std::cerr<<"\nError creating SDL window : "<<SDL_GetError();
+	if(_renderer == nullptr)
+		std::cerr<<"\nError creating SDL renderer : "<<SDL_GetError();	
+
 	clear();
 }
 
@@ -31,10 +40,9 @@ void Display::clear()
 			_pixel[col][row] = 0;
 		}
 	}
-
-	
-	SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
+	SDL_SetRenderDrawColor(_renderer, configurations.currentCombo.bg_red, configurations.currentCombo.bg_green, configurations.currentCombo.bg_blue, 255);
 	SDL_RenderClear(_renderer);
+
 	#if DEBUG
 	std::cout<<"\nCLS";	
 	#endif
@@ -52,7 +60,7 @@ void Display::setPixel(int x, int y, int val)
 
 void Display::updateScreen()
 {
-	SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
+	SDL_SetRenderDrawColor(_renderer, configurations.currentCombo.bg_red, configurations.currentCombo.bg_green, configurations.currentCombo.bg_blue, 255);
 	SDL_RenderClear(_renderer);
 	for(int row=0; row<SCREEN_HEIGHT; row++)
 	{
@@ -60,7 +68,7 @@ void Display::updateScreen()
 		{
 			if(_pixel[col][row])
 			{
-				SDL_SetRenderDrawColor(_renderer, 255, 100, 0, 255);
+				SDL_SetRenderDrawColor(_renderer, configurations.currentCombo.fg_red, configurations.currentCombo.fg_green, configurations.currentCombo.fg_blue, 255);
 				SDL_RenderDrawPoint(_renderer, col, row);
 			}
 		}

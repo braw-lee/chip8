@@ -26,6 +26,14 @@ bool EventHandler::handleEvents()
 			//return true when user presses 'esc' key
 			if (_event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 				quit = true;
+			//pause or unpause game when user presses 'P'
+			if (_event.key.keysym.scancode == SDL_SCANCODE_P)
+			{
+				if (configurations.gameState == GameState::PAUSED)
+					configurations.gameState = RUNNING;
+				else //configurations.gameState == GameState::RUNNING
+				     	configurations.gameState = PAUSED;
+			}
 		}
 
 		//handles events when user releases a key

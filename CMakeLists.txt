@@ -16,6 +16,7 @@ add_executable( mainBinary
 	src/randomNumber.cpp
 	src/sound.cpp
 	src/utility.cpp
+	src/config.cpp
 	)
 target_compile_features(mainBinary PRIVATE cxx_std_11)
 target_include_directories(mainBinary PRIVATE $(CMAKE_CURRENT_SOURCE_DIR)/include)

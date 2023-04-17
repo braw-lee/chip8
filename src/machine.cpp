@@ -14,6 +14,10 @@ void Machine::run(std::string& romPath)
 		{
 			quit = ehandler.handleEvents();
 
+			//loop handleEvents() till user presses 'P' again
+			if(configurations.gameState == GameState::PAUSED)
+				continue;
+
 			uint64_t start_time = SDL_GetPerformanceCounter();
 			for(int i=0; i< configurations.instructionsPerSecond / configurations.framesPerSecond; i++)
 			{
