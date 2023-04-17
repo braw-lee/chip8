@@ -40,7 +40,7 @@ void Display::clear()
 			_pixel[col][row] = 0;
 		}
 	}
-	SDL_SetRenderDrawColor(_renderer, configurations.currentCombo.bg_red, configurations.currentCombo.bg_green, configurations.currentCombo.bg_blue, 255);
+	SDL_SetRenderDrawColor(_renderer, configurations.currentCombo.bg.red_val, configurations.currentCombo.bg.green_val, configurations.currentCombo.bg.blue_val, 255);
 	SDL_RenderClear(_renderer);
 
 	#if DEBUG
@@ -60,7 +60,7 @@ void Display::setPixel(int x, int y, int val)
 
 void Display::updateScreen()
 {
-	SDL_SetRenderDrawColor(_renderer, configurations.currentCombo.bg_red, configurations.currentCombo.bg_green, configurations.currentCombo.bg_blue, 255);
+	SDL_SetRenderDrawColor(_renderer, configurations.currentCombo.bg.red_val, configurations.currentCombo.bg.green_val, configurations.currentCombo.bg.blue_val, 255);
 	SDL_RenderClear(_renderer);
 	for(int row=0; row<SCREEN_HEIGHT; row++)
 	{
@@ -68,7 +68,7 @@ void Display::updateScreen()
 		{
 			if(_pixel[col][row])
 			{
-				SDL_SetRenderDrawColor(_renderer, configurations.currentCombo.fg_red, configurations.currentCombo.fg_green, configurations.currentCombo.fg_blue, 255);
+				SDL_SetRenderDrawColor(_renderer, configurations.currentCombo.fg.red_val, configurations.currentCombo.fg.green_val, configurations.currentCombo.fg.blue_val, 255);
 				SDL_RenderDrawPoint(_renderer, col, row);
 			}
 		}

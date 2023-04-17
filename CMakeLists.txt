@@ -18,6 +18,6 @@ add_executable( mainBinary
 	src/utility.cpp
 	src/config.cpp
 	)
-target_compile_features(mainBinary PRIVATE cxx_std_11)
+target_compile_features(mainBinary PRIVATE cxx_std_17)
 target_include_directories(mainBinary PRIVATE $(CMAKE_CURRENT_SOURCE_DIR)/include)
 target_link_libraries(mainBinary ${SDL2_LIBRARIES})

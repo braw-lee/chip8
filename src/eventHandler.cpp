@@ -1,5 +1,6 @@
 #include "../include/eventHandler.h"
 #include "../include/config.h"
+#include "../include/randomNumber.h"
 
 #include <iostream> //temp
 
@@ -33,6 +34,11 @@ bool EventHandler::handleEvents()
 					configurations.gameState = RUNNING;
 				else //configurations.gameState == GameState::RUNNING
 				     	configurations.gameState = PAUSED;
+			}
+			//change colorCombo when user presses 'L'
+			if(_event.key.keysym.scancode == SDL_SCANCODE_L)
+			{
+				configurations.currentCombo = colorComboList[RandomNumber::generateRandomNumber(0,colorComboList.size()-1)];
 			}
 		}
 

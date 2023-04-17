@@ -1,6 +1,9 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#include <vector>
+#include "color.hpp"
+
 #include <cstdint>
 
 enum Version
@@ -15,17 +18,25 @@ enum GameState
 	RUNNING
 };
 
-struct ColorCombo
+const std::vector<ColorCombo> colorComboList
 {
-	//foreground color , default orange
-	uint8_t fg_red{0};
-	uint8_t fg_green{0};
-	uint8_t fg_blue{255};
-
-	//background color , default black
-	uint8_t bg_red{255};
-	uint8_t bg_green{255};
-	uint8_t bg_blue{255};
+	ComboPallete::green_mossGreen,	
+	ComboPallete::blue_pink,
+	ComboPallete::blue_peach,
+	ComboPallete::black_yellow,
+	ComboPallete::red_yellow,
+	ComboPallete::limeGreen_blue,
+	ComboPallete::lavender_teal,
+	ComboPallete::cherryRed_offWhite,
+	ComboPallete::babyBlue_white,
+	ComboPallete::hotPink_cyan,
+	ComboPallete::cherryRed_lightPink,
+	ComboPallete::red_spicedApple,
+	ComboPallete::lightPurple_mint,
+	ComboPallete::black_white,
+	ComboPallete::white_black,
+	ComboPallete::orange_black,
+//	ComboPallete::,
 };
 
 struct Config
@@ -35,9 +46,8 @@ struct Config
 	int instructionsPerSecond{900};
 	int framesPerSecond{60};
 	int gameState{RUNNING};
-	ColorCombo currentCombo{};
+	ColorCombo currentCombo{colorComboList[0]};
 };
-
 extern Config configurations;
 
 #endif
