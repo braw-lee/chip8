@@ -8,6 +8,7 @@
 class Machine
 {
 public:
+	//main loop; handle events, run cpu cycles, decrement timers at a given rate
 	void run(std::string& romPath);
 };
 

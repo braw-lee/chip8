@@ -41,10 +41,10 @@ const std::vector<ColorCombo> colorComboList
 
 struct Config
 {
-	Version currVersion{CHIP_48};
-	int volume{3000};
-	int instructionsPerSecond{900};
-	int framesPerSecond{60};
+	const Version currVersion{CHIP_48};
+	const int volume{3000};
+	const int instructionsPerSecond{900};
+	const int framesPerSecond{60};
 	int gameState{RUNNING};
 	ColorCombo currentCombo{colorComboList[0]};
 };

@@ -6,6 +6,7 @@
 
 namespace Utility
 {
+	//convert an int to a string in readable hex form
 	std::string toHex(int num, int length);
 };
 

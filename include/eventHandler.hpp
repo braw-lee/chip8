@@ -30,6 +30,8 @@ private:
 	//SDL_Event is a union containing structures
 	//for all types of SDL events
 	SDL_Event _event;
+
+	//map QWERTY keypad to COSMAC VIP keypad
 	std::map<SDL_Scancode, uint8_t> _keyMapping
 	{
 		{SDL_SCANCODE_1, 0x1},
