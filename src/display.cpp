@@ -75,4 +75,3 @@ void Display::updateScreen()
 	}
 	SDL_RenderPresent(_renderer);
 }
-

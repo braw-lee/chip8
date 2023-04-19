@@ -1,5 +1,4 @@
 #include "../include/utility.hpp"
-#include <cctype>
 #include <sstream>
 #include <algorithm>
 

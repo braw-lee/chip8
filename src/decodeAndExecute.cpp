@@ -48,8 +48,8 @@ void Cpu::decodeAndExecute(uint16_t opcode)
 
 					#if DEBUG
 					std::cout<<"\n00EE - RET";
-					std::cout<<"\n_pc : "<<Utility::toHex(_pc,4);
-					std::cout<<"\n_sp : "<<Utility::toHex(_sp, 2);
+					std::cout<<"\n_pc : "<<toHex(_pc,4);
+					std::cout<<"\n_sp : "<<toHex(_sp, 2);
 					#endif
 					break;
 				}
@@ -66,7 +66,7 @@ void Cpu::decodeAndExecute(uint16_t opcode)
 
 			#if DEBUG
 			std::cout<<"\n1nnn - JP addr";
-			std::cout<<"\n_pc : "<<Utility::toHex(_pc, 4);
+			std::cout<<"\n_pc : "<<toHex(_pc, 4);
 			#endif
 			break;
 		}
@@ -79,9 +79,9 @@ void Cpu::decodeAndExecute(uint16_t opcode)
 
 			#if DEBUG
 			std::cout<<"\n2nnn - CALL addr";
-			std::cout<<"\n_sp : "<<Utility::toHex(_sp, 2);
-			std::cout<<"\n_stack[_sp] : "<<Utility::toHex(_stack[_sp], 4);
-			std::cout<<"\n_pc : "<<Utility::toHex(_pc, 4);
+			std::cout<<"\n_sp : "<<toHex(_sp, 2);
+			std::cout<<"\n_stack[_sp] : "<<toHex(_stack[_sp], 4);
+			std::cout<<"\n_pc : "<<toHex(_pc, 4);
 			#endif
 			break;
 		}
@@ -93,9 +93,9 @@ void Cpu::decodeAndExecute(uint16_t opcode)
 
 			#if DEBUG
 			std::cout<<"\n3xkk - SE Vx, byte";
-			std::cout<<"\nV["<<Utility::toHex(x, 1)<<"] : "<<Utility::toHex(_v[x], 2);
-			std::cout<<"\nnn : "<<Utility::toHex(nn, 2);
-			std::cout<<"\n_pc : "<<Utility::toHex(_pc, 4);
+			std::cout<<"\nV["<<toHex(x, 1)<<"] : "<<toHex(_v[x], 2);
+			std::cout<<"\nnn : "<<toHex(nn, 2);
+			std::cout<<"\n_pc : "<<toHex(_pc, 4);
 			#endif
 			break;
 		}
