@@ -3,9 +3,10 @@
 
 void Machine::run(std::string& romPath)
 {
+	Display display;
 	Keyboard keyboard;
 	EventHandler ehandler(keyboard.getKeys());
-	Cpu cpu(keyboard.getKeys());
+	Cpu cpu(keyboard.getKeys(), display);
 	if(cpu.loadRom(romPath))
 	{
 		bool quit{false};

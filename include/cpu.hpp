@@ -20,7 +20,7 @@ const int MEMORY_START = 0x200;  //we should start reading from 0x200
 class Cpu
 {
 public:
-	Cpu(std::array<Keyboard::KeyState, 16>& keyState);
+	Cpu(std::array<Keyboard::KeyState, 16>& keyState, Display& display);
 	bool loadRom(std::string& path);
 	uint16_t fetch();
 	void runCycle();
@@ -39,7 +39,7 @@ private:
 	uint8_t _soundTimer;  //decremented at 60Hz, play sound when _soundTimer != 0
 	std::array<uint8_t, 16> _v;  //16 8-bit registers
 
-	Display _display;
+	Display& _display;
 	bool _updateDisplay;
 	
 	std::array<Keyboard::KeyState, 16>& _keyState;

@@ -7,7 +7,7 @@
 
 using namespace Utility;
 
-Cpu::Cpu(std::array<Keyboard::KeyState, 16>& keyState)
+Cpu::Cpu(std::array<Keyboard::KeyState, 16>& keyState, Display& display)
 	: _font
 	{
 		0xF0, 0x90, 0x90, 0x90, 0xF0, // 0
@@ -33,7 +33,8 @@ Cpu::Cpu(std::array<Keyboard::KeyState, 16>& keyState)
 	_delayTimer{},
 	_soundTimer{},
 	_updateDisplay{false},
-	_keyState{keyState}
+	_keyState{keyState},
+	_display{display}
 {
 	//setup fonts in memory
 	for(int i=0; i<80; i++)
