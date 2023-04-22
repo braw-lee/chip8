@@ -75,3 +75,8 @@ void Display::updateScreen()
 	}
 	SDL_RenderPresent(_renderer);
 }
+
+void Display::updateWindowName(const char* newName)
+{
+	SDL_SetWindowTitle(_window, newName);
+}

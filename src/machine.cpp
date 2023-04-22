@@ -5,7 +5,7 @@ void Machine::run(std::string& romPath)
 {
 	Display display;
 	Keyboard keyboard;
-	EventHandler ehandler(keyboard.getKeys());
+	EventHandler ehandler(keyboard.getKeys(), display);
 	Cpu cpu(keyboard.getKeys(), display);
 	if(cpu.loadRom(romPath))
 	{

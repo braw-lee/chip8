@@ -2,8 +2,8 @@
 #include "../include/config.hpp"
 #include "../include/randomNumber.hpp"
 
-EventHandler::EventHandler(std::array<Keyboard::KeyState, 16>& keyState)
-	:_keyState{keyState}
+EventHandler::EventHandler(std::array<Keyboard::KeyState, 16>& keyState, Display& display)
+	:_keyState{keyState}, _display{display}
 {}
 
 bool EventHandler::handleEvents()
@@ -29,9 +29,15 @@ bool EventHandler::handleEvents()
 			if (_event.key.keysym.scancode == SDL_SCANCODE_P)
 			{
 				if (configurations.gameState == GameState::PAUSED)
+				{
 					configurations.gameState = RUNNING;
+					_display.updateWindowName("CHIP-8");
+				}
 				else //configurations.gameState == GameState::RUNNING
-				     	configurations.gameState = PAUSED;
+				{
+					configurations.gameState = PAUSED;
+					_display.updateWindowName("CHIP-8 : PAUSED");
+				}
 			}
 			//change colorCombo when user presses 'L'
 			if(_event.key.keysym.scancode == SDL_SCANCODE_L)
