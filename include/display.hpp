@@ -2,6 +2,7 @@
 #define DISPLAY_HPP
 
 #include<array>
+#include<string>
 #include <SDL2/SDL.h>
 
 const int SCREEN_WIDTH = 64;
@@ -17,6 +18,7 @@ public:
 	uint8_t getPixel(int x,int y);
 	void setPixel(int x, int y, int val);
 	void updateScreen();
+	void updateWindowName(const char* newName);
 private:
 	SDL_Window* _window;
 	SDL_Renderer* _renderer;

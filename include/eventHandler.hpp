@@ -16,16 +16,16 @@
 #include <map>
 
 #include "keyboard.hpp"
+#include "display.hpp"
 
 class EventHandler
 {
 public:
-	EventHandler(std::array<Keyboard::KeyState, 16>& keyState);
+	EventHandler(std::array<Keyboard::KeyState, 16>& keyState, Display& display);
 
 	//returns true if user signals to quit program
 	//else returns false
 	bool handleEvents();
-
 private:
 	//SDL_Event is a union containing structures
 	//for all types of SDL events
@@ -53,6 +53,7 @@ private:
 	};
 
 	std::array<Keyboard::KeyState,16>& _keyState;
+	Display& _display;
 };
 
 #endif
