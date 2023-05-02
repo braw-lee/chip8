@@ -37,7 +37,7 @@ void Display::clear()
 	{
 		for(int col=0; col<SCREEN_WIDTH; col++)
 		{	
-			_pixel[col][row] = 0;
+			_pixel[col][row] = Display::PIXEL_OFF;
 		}
 	}
 	SDL_SetRenderDrawColor(_renderer, configurations.currentCombo.bg.red_val, configurations.currentCombo.bg.green_val, configurations.currentCombo.bg.blue_val, 255);
@@ -48,12 +48,12 @@ void Display::clear()
 	#endif
 }
 
-uint8_t Display::getPixel(int x,int y)
+Display::PixelState Display::getPixel(int x,int y)
 {
 	return _pixel[x][y];
 }
 
-void Display::setPixel(int x, int y, int val)
+void Display::setPixel(int x, int y, Display::PixelState val)
 {
 	_pixel[x][y] = val;
 }
@@ -66,7 +66,7 @@ void Display::updateScreen()
 	{
 		for(int col=0; col<SCREEN_WIDTH; col++)
 		{
-			if(_pixel[col][row])
+			if(_pixel[col][row] == Display::PIXEL_ON)
 			{
 				SDL_SetRenderDrawColor(_renderer, configurations.currentCombo.fg.red_val, configurations.currentCombo.fg.green_val, configurations.currentCombo.fg.blue_val, 255);
 				SDL_RenderDrawPoint(_renderer, col, row);

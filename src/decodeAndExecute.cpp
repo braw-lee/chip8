@@ -371,12 +371,16 @@ void Cpu::decodeAndExecute(uint16_t opcode)
 
 					if( (spriteData & (0x80 >> col)) !=0)
 					{
-						if(_display.getPixel(xCordinate, yCordinate) == 1)
+						if(_display.getPixel(xCordinate, yCordinate) == Display::PIXEL_ON)
 						{
 							_v[0xF] = 1;
 						}
-						
-						_display.setPixel(xCordinate, yCordinate, _display.getPixel(xCordinate, yCordinate) ^ 1);
+						Display::PixelState state{Display::PIXEL_ON};
+
+						if(_display.getPixel(xCordinate, yCordinate) == Display::PIXEL_ON)
+							state = Display::PIXEL_OFF;
+
+						_display.setPixel(xCordinate, yCordinate, state);
 					}
 					//when sprite does not start outside of screen
 					//but some part goes out, it is clipped
