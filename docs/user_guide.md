@@ -1,5 +1,5 @@
 User guide on how to use this CHIP-8 emulator.
-You can find it here : github.com/braw-lee/chip8
+You can find it here : [](github.com/braw-lee/chip8)
 
 1. Key mapping :
 	The keys are mapped form COSMAC VIP keypad to QWERTY keypad as follows
